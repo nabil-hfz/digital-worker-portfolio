@@ -6,8 +6,8 @@ import { PortfolioEntryModel } from '../../models/portfolio-entry.model';
 
 @Component({
   selector: 'app-portfolio',
-  templateUrl: './portfolio-list.component.html',
-  styleUrl: './portfolio-list.component.css'
+  templateUrl: './portfolio-grid.component.html',
+  styleUrl: './portfolio-grid.component.css'
 })
 export class PortfolioListComponent {
   cols: number = 3;
@@ -96,3 +96,4 @@ export class PortfolioListComponent {
 
 
 }
+

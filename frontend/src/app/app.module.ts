@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
-import { PortfolioListComponent } from './portfolio/portfolio-list/portfolio-list.component';
+import { PortfolioListComponent } from './portfolio/portfolio-grid/portfolio-grid.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
