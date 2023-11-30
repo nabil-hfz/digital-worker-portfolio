@@ -1,0 +1,21 @@
+<div class="content">
+    <mat-grid-list cols="2" rowHeight="300px" gutterSize="5px">
+        <mat-grid-tile *ngFor="let entry of entries" [colspan]="1" [rowspan]="1" [style.background]="">
+            <mat-card class="card">
+                <mat-card-header>
+                    <div mat-card-avatar></div>
+                    <mat-card-title>{{entry.title}}</mat-card-title>
+                    <mat-card-subtitle>{{entry.createdDate | date:"MMM d, yyyy 'at' hh:mm a"}}</mat-card-subtitle>
+                </mat-card-header>
+                <img mat-card-image [src]="entry.imageUrl" alt="Photo of {{entry.description}}">
+                <mat-card-content>
+                    <p>{{entry.description}}</p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button>LIKE</button>
+                    <button mat-button>SHARE</button>
+                </mat-card-actions>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

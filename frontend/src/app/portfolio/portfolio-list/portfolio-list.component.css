@@ -1,0 +1,49 @@
+.content {
+    padding: 16px;
+    display: block;
+    /* Ensures the grid takes the full width */
+}
+
+mat-grid-tile {
+    background: lightsalmon;
+}
+
+.mat-grid-tile {
+    padding: 8px;
+    /* Adds some space around each card */
+}
+
+.card {
+    width: 100%;
+    /* Makes the card take the full width of the grid tile */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Distributes space inside the card */
+    margin: 2px;
+    padding: 8px;
+    /* Adds some space around each card */
+}
+
+mat-card-header {
+    align-items: center;
+    /* Aligns header items vertically */
+}
+
+mat-card-image {
+    width: 100%;
+    /* Ensures the image takes the full width of the card */
+    height: auto;
+    /* Maintains the aspect ratio of the image */
+}
+
+mat-card-content {
+    flex-grow: 1;
+    /* Allows the content to fill the space */
+}
+
+mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    /* Aligns actions to the right */
+}

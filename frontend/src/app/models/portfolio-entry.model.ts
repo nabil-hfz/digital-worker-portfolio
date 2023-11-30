@@ -1,4 +1,3 @@
-// src/app/models/portfolio-entry.model.ts
 
 export class PortfolioEntryModel {
     constructor(
@@ -7,7 +6,8 @@ export class PortfolioEntryModel {
         public description: string,
         public imageUrl: string,
         public customerLink: string,
-        public isVisible: boolean
+        public isVisible: boolean,
+        public createdDate: Date,
     ) { }
 }
 
