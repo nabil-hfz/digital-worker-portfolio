@@ -1,1 +1,40 @@
-<p>portfolio-details works!</p>
+<!-- portfolio-details.component.html -->
+<mat-card>
+    <div  [formGroup]="form"  class="portfolio-form-container">
+
+        <form (ngSubmit)="onSubmit()">
+
+            <div class="form-field">
+                <label for="title">Title:</label>
+                <input type="text" id="title" formControlName="title">
+            </div>
+
+            <div class="form-field">
+                <label for="description">Description:</label>
+                <textarea id="description" formControlName="description"></textarea>
+            </div>
+
+            <div class="form-field">
+                <label for="imageUrl">Image URL:</label>
+                <input type="text" id="imageUrl" formControlName="imageUrl">
+            </div>
+
+            <div class="form-field">
+                <label for="customerLink">Customer Link:</label>
+                <input type="text" id="customerLink" formControlName="customerLink">
+            </div>
+
+            <div class="form-field">
+                <label for="isVisible">Visible:</label>
+                <input type="checkbox" id="isVisible" formControlName="isVisible">
+            </div>
+
+            <div class="form-field">
+                <label for="createdDate">Created Date:</label>
+                <input type="date" id="createdDate" formControlName="createdDate">
+            </div>
+
+            <button type="submit" [disabled]="!form.valid">Submit</button>
+        </form>
+    </div>
+</mat-card>
