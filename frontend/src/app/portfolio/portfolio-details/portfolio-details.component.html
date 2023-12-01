@@ -1,6 +1,6 @@
 <!-- portfolio-details.component.html -->
 <mat-card>
-    <div  [formGroup]="form"  class="portfolio-form-container">
+    <div  [formGroup]="portfolioForm"  class="portfolio-form-container">
 
         <form (ngSubmit)="onSubmit()">
 
@@ -34,7 +34,7 @@
                 <input type="date" id="createdDate" formControlName="createdDate">
             </div>
 
-            <button type="submit" [disabled]="!form.valid">Submit</button>
+            <button type="submit" [disabled]="!portfolioForm.valid">Submit</button>
         </form>
     </div>
 </mat-card>

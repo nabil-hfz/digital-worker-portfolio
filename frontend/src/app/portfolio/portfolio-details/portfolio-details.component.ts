@@ -7,21 +7,21 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./portfolio-details.component.css']
 })
 export class PortfolioDetailsComponent implements OnInit {
-  public form : FormGroup= new FormGroup({
-    title: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required),
-    imageUrl: new FormControl('', Validators.required),
-    customerLink: new FormControl('', Validators.required),
-    isVisible: new FormControl(true),  
-    createdDate: new FormControl(new Date()),  
-  });
+  portfolioForm!: FormGroup;
 
   ngOnInit() {
-  
+    this.portfolioForm = new FormGroup({
+      title: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
+      imageUrl: new FormControl('', Validators.required),
+      customerLink: new FormControl('', Validators.required),
+      isVisible: new FormControl(true),
+      createdDate: new FormControl(new Date()),
+    });
   }
 
   onSubmit() {
-    console.log(this.form?.value);
+    console.log(this.portfolioForm?.value);
 
   }
 }

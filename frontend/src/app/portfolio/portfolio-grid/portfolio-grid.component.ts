@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PortfolioEntryModel } from '../../models/portfolio-entry.model';
+import { Router } from '@angular/router';
 // import { PortfolioEntryModel } from '../../models/portfolio-entry.model';
 
 
@@ -11,7 +12,7 @@ import { PortfolioEntryModel } from '../../models/portfolio-entry.model';
 })
 export class PortfolioListComponent {
   cols: number = 3;
-  
+
   entries: PortfolioEntryModel[] = [
     new PortfolioEntryModel(
       1,
@@ -20,7 +21,7 @@ export class PortfolioListComponent {
       'https://picsum.photos/id/237/200/300',
       'https://techblog.com',
       true,
-      new Date(2021,3,4),
+      new Date(2021, 3, 4),
 
     ),
     new PortfolioEntryModel(
@@ -30,7 +31,7 @@ export class PortfolioListComponent {
       'https://picsum.photos/id/235/200/300',
       'https://fashionretailer.com',
       true,
-      new Date(2020,12,3),
+      new Date(2020, 12, 3),
     ),
     new PortfolioEntryModel(
       3,
@@ -39,7 +40,7 @@ export class PortfolioListComponent {
       'https://picsum.photos/id/234/200/300',
       'https://fitnesstrackerapp.com',
       false, // This entry is set to not visible.
-      new Date(2023,2,11),
+      new Date(2023, 2, 11),
 
     ),
     new PortfolioEntryModel(
@@ -49,7 +50,7 @@ export class PortfolioListComponent {
       'https://picsum.photos/id/234/200/300',
       'https://fitnesstrackerapp.com',
       false, // This entry is set to not visible.
-      new Date(2023,2,11),
+      new Date(2023, 2, 11),
 
     ),
     new PortfolioEntryModel(
@@ -59,7 +60,7 @@ export class PortfolioListComponent {
       'https://picsum.photos/id/237/200/300',
       'https://techblog.com',
       true,
-      new Date(2021,3,4),
+      new Date(2021, 3, 4),
 
     ),
     new PortfolioEntryModel(
@@ -69,29 +70,16 @@ export class PortfolioListComponent {
       'https://picsum.photos/id/235/200/300',
       'https://fashionretailer.com',
       true,
-      new Date(2020,12,3),
+      new Date(2020, 12, 3),
     ),
   ];
 
-  constructor() {
-    this.updateGridColumns(window.innerWidth);
-  }
+  constructor(private router: Router) { }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.updateGridColumns(event.target.innerWidth);
-  }
+  navigateToForm() {
 
-  updateGridColumns(innerWidth: number) {
-    if (innerWidth >= 1200) {
-      this.cols = 4;
-    } else if (innerWidth >= 1000) {
-      this.cols = 3;
-    } else if (innerWidth >= 800) {
-      this.cols = 2;
-    } else {
-      this.cols = 1;
-    }
+    console.log('navigateToForm /portfolio-form');
+    this.router.navigate(['/portfolio-form']);
   }
 
 
