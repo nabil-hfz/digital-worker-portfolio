@@ -11,9 +11,3 @@ export const routes: Routes = [
   { path: '', redirectTo: '/portfolio-list', pathMatch: 'full' }
 ];
 
-// @NgModule({
-//   imports: [RouterModule.forRoot(routes)],
-//   exports: [RouterModule]
-// })
-// export class AppRoutingModule { }
-
