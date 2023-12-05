@@ -11,7 +11,7 @@ import { checkIfIsValidCreateEntryReqBody } from './requests/create-entry/create
 import { HttpResponseError } from "../../utils/http-response-error";
 import { EntriesListResumedRes } from "./responses/entry-list-resumed-res";
 import { entryRepository } from "../../repository/entry/entry-repository";
-import { buildImageUrl } from '../../utils/url-builders';
+import { buildImageUrl, getFilenameFromImageUrl } from '../../utils/url-builders';
 
 export class EntryController implements Controller {
 
@@ -154,8 +154,6 @@ export class EntryController implements Controller {
       );
     }
 
-
-
     entry.title = reqBody.title;
     entry.description = reqBody.description;
     if (reqBody.isVisible != null)
@@ -168,11 +166,7 @@ export class EntryController implements Controller {
       entry.imageUrl = imageUrl;
     }
 
-
-
     const updatedEntry = await entryRepository.updateDocument(id, entry);
-
-
 
     res.status(200).send({
       message: 'Entry was updated successfully',
@@ -202,8 +196,10 @@ export class EntryController implements Controller {
     }
 
     entry = await entryRepository.deleteDocument(id);
-
-
+    if (entry?.imageUrl) {
+      let fileName = getFilenameFromImageUrl(entry!.imageUrl);
+      deleteFileFromUploads(fileName);
+    }
     res.status(200).send({
       message: 'Entry was deleted successfully',
       data: entry,
