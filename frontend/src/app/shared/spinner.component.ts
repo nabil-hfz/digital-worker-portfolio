@@ -31,16 +31,16 @@ export class SpinnerComponent implements OnDestroy {
           event instanceof NavigationCancel ||
           event instanceof NavigationError
         ) {
-          this.isSpinnerVisible = false;
+          this.isSpinnerVisible = true;
         }
       },
       () => {
-        this.isSpinnerVisible = false;
+        this.isSpinnerVisible = true;
       }
     );
   }
 
   ngOnDestroy(): void {
-    this.isSpinnerVisible = false;
+    this.isSpinnerVisible = true;
   }
 }
