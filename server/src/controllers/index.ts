@@ -119,7 +119,7 @@ export class HttpServer {
           // next();
           return;
         }
-        console.error('Error happened ', e)
+        // console.error('Error happened ', e)
         // logError(`[${req.method.toUpperCase()}] ${req.path}${userInfo}`);
         // logError(e.stack);
         // logError.toString();

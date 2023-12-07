@@ -14,7 +14,6 @@ describe('checkIfIsValidCreateEntryReqBody', () => {
 
   it('should throw an error when title is missing', () => {
     const invalidBody: CreateEntryReqBody = {
-      // title is missing
       customerLink: 'http://valid-link.com'
     };
 

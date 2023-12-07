@@ -13,7 +13,7 @@ export abstract class Repository<T extends Document> {
     try {
       return await this.model.findById(documentId).exec();
     } catch (error) {
-      console.error(`Error getting document: ${documentId}`, error);
+      // console.error(`Error getting document: ${documentId}`, error);
       throw new InvalidDataException({ error: error.message });
     }
   }
@@ -37,7 +37,7 @@ export abstract class Repository<T extends Document> {
       const doc = new this.model(data);
       return await doc.save() as T;
     } catch (error) {
-      console.error("Error creating document", error);
+      // console.error("Error creating document", error);
       throw new InvalidDataException({ error: error.message });
     }
   }
@@ -47,7 +47,7 @@ export abstract class Repository<T extends Document> {
     try {
       return await this.model.findByIdAndUpdate(documentId, updateData, { new: true }).exec();
     } catch (error) {
-      console.error(`Error updating document: ${documentId}`, error);
+      // console.error(`Error updating document: ${documentId}`, error);
       throw new InvalidDataException({ error: error.message });
     }
   }
@@ -66,7 +66,7 @@ export abstract class Repository<T extends Document> {
       const result = await this.model.findByIdAndDelete(documentId).exec();
       return result.value;
     } catch (error) {
-      console.error(`Error deleting document: ${documentId}`, error);
+      // console.error(`Error deleting document: ${documentId}`, error);
       throw new InvalidDataException({ error: error.message });
     }
   }
