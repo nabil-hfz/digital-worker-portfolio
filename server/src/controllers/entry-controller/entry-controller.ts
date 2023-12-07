@@ -54,9 +54,15 @@ export class EntryController implements Controller {
     checkIfIsValidCreateEntryReqBody(reqBody);
 
 
+    if (!req.file?.filename) {
+      throw new HttpResponseError(
+        400,
+        "BAD_REQUEST",
+        "No image file specified"
+      );
+    }
 
-
-    const imageUrl = buildImageUrl(req, req.file.filename)
+    const imageUrl = buildImageUrl(req, req.file?.filename)
 
     const newEntry = await entryRepository.createEntry(reqBody, imageUrl);
 
@@ -71,7 +77,6 @@ export class EntryController implements Controller {
 
   private readonly getEntriesList: RequestHandler = async (req, res, next) => {
 
-    const visiblity = req.query.visiblity ?? true;
     const page = req.query.page ?? 1;
     const limit = req.query.limit ?? 10;
 
@@ -154,14 +159,14 @@ export class EntryController implements Controller {
       );
     }
 
-    entry.title = reqBody.title;
-    entry.description = reqBody.description;
+    entry.title = reqBody.title!;
+    entry.description = reqBody.description ?? '';
     if (reqBody.isVisible != null)
       entry.isVisible = reqBody.isVisible;
 
-    entry.customerLink = reqBody.customerLink;
+    entry.customerLink = reqBody.customerLink!;
 
-    if (req.file.filename && req.file.filename.length) {
+    if (req.file?.filename && req.file?.filename.length) {
       const imageUrl = buildImageUrl(req, req.file.filename);
       entry.imageUrl = imageUrl;
     }

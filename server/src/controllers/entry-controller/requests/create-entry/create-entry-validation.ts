@@ -11,7 +11,4 @@ export function checkIfIsValidCreateEntryReqBody(body: CreateEntryReqBody) {
   if (!body?.customerLink) {
     throw new HttpResponseError(400, "BAD_REQUEST", 'No "customer Link" defined');
   }
-
-
-
 }

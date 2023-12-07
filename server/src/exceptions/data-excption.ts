@@ -4,9 +4,9 @@ import { Errors } from "../utils/errors";
 export class DataException {
 
   constructor(
-    private errorCode: string,
-    private message: string,
-    private details?: object
+    public errorCode: string,
+    public message: string,
+    public details?: object
   ) {
   }
 

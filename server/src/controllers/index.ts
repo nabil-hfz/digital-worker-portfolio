@@ -28,26 +28,22 @@ type PostParams = {
   path: string;
   requestHandler: RequestHandler;
   fileFields?: any[];
-  customClaims?: string[];
 };
 
 type GetParams = {
   path: string;
   requestHandler: RequestHandler;
-  customClaims?: string[];
 };
 
 type PutParams = {
   path: string;
   requestHandler: RequestHandler;
   fileFields?: any[];
-  customClaims?: string[];
 };
 
 type DeleteParams = {
   path: string;
   requestHandler: RequestHandler;
-  customClaims?: string[];
 };
 
 
@@ -62,7 +58,7 @@ export class HttpServer {
   get(params: GetParams): void {
     this.express.get(
       params.path,
-      this._catchErrorHandler(params.requestHandler, params.customClaims)
+      this._catchErrorHandler(params.requestHandler)
     );
   }
 
@@ -71,7 +67,7 @@ export class HttpServer {
     this.express.post(
       param.path,
       upload.single('image'),
-      this._catchErrorHandler(param.requestHandler, param.customClaims)
+      this._catchErrorHandler(param.requestHandler)
     );
 
   }
@@ -82,7 +78,7 @@ export class HttpServer {
     this.express.put(
       params.path,
       upload.single('image'),
-      this._catchErrorHandler(params.requestHandler, params.customClaims)
+      this._catchErrorHandler(params.requestHandler)
     );
   }
 
@@ -92,43 +88,16 @@ export class HttpServer {
   ): void {
     this.express.delete(
       params.path,
-      this._catchErrorHandler(params.requestHandler, params.customClaims)
+      this._catchErrorHandler(params.requestHandler)
     );
   }
 
   private readonly _catchErrorHandler = (
     requestHandler: RequestHandler,
-    customClaims?: string[]
   ) => {
     return async (req: Request, res: Response, next: NextFunction) => {
-      const checkCustomClaim = () => {
-        if (customClaims?.length) {
-          // assert(req.authenticated != null);
-          // assert(req.auth != null);
-
-          if (!req.authenticated) {
-            throw new HttpResponseError(
-              403,
-              "FORBIDDEN",
-              "You should be authenticated on a Firebase Auth account that have this/these custom claims: " +
-              customClaims
-            );
-          }
-          for (const claim of customClaims) {
-            if ((req.auth!.customClaims ?? {})[claim]) {
-              return;
-            }
-          }
-          throw new HttpResponseError(
-            403,
-            "FORBIDDEN",
-            `Only ${customClaims.toString().replace(/,/g, ", ")} can access`
-          );
-        }
-      };
+    
       try {
-        checkCustomClaim.toString();
-        // checkCustomClaim();
         // noinspection ES6RedundantAwait
         await Promise.resolve(requestHandler(req, res, next));
       } catch (e: any) {
