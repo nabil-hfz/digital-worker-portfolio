@@ -15,10 +15,10 @@ export class EntryRepository extends Repository<IEntryFullRes> {
     : Promise<IEntryFullRes> {
 
     let data = {
-      title: request.title,
-      description: request.description,
-      isVisible: request.isVisible ?? true,
-      customerLink: request.customerLink,
+      title: request?.title,
+      description: request?.description,
+      isVisible: request?.isVisible ?? true,
+      customerLink: request?.customerLink,
       imageUrl: imageUrl,
       createdDate: new Date(),
 
