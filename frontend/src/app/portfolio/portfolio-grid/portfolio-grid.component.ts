@@ -1,84 +1,53 @@
-import { Component, HostListener, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, ViewEncapsulation, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PortfolioEntryModel } from '../../models/portfolio-entry.model';
+import { FilterPortfolioEntryModel, PortfolioEntryModel } from '../../models/portfolio-entry.model';
 import { Router } from '@angular/router';
-// import { PortfolioEntryModel } from '../../models/portfolio-entry.model';
+import { EntriesService } from '../../stores/portfolio/api/portfolio.service';
 
 
 @Component({
   selector: 'app-portfolio',
   templateUrl: './portfolio-grid.component.html',
   styleUrl: './portfolio-grid.component.css',
-  encapsulation: ViewEncapsulation.Emulated // This is the default
+  encapsulation: ViewEncapsulation.Emulated  
 
 })
-export class PortfolioListComponent {
-  cols: number = 3;
+export class PortfolioListComponent implements OnInit {
+  isLoading = true;
 
-  entries: PortfolioEntryModel[] = [
-    new PortfolioEntryModel(
-      '1',
-      'Modern Web Design',
-      'A complete redesign of a tech blog, focusing on responsive and modern UI/UX principles.',
-      'https://picsum.photos/id/237/200/300',
-      'https://techblog.com',
-      true,
-      new Date(2021, 3, 4),
+  entries: PortfolioEntryModel[] = [];
 
-    ),
-    new PortfolioEntryModel(
-      '2',
-      'E-commerce Storefront',
-      'Developed an engaging and intuitive e-commerce platform for a fashion retailer, featuring a seamless shopping experience.',
-      'https://picsum.photos/id/235/200/300',
-      'https://fashionretailer.com',
-      true,
-      new Date(2020, 12, 3),
-    ),
-    new PortfolioEntryModel(
-      '3',
-      'Mobile App Development',
-      'Created a cross-platform mobile application for a fitness tracker, emphasizing user-friendly design and robust functionality.',
-      'https://picsum.photos/id/234/200/300',
-      'https://fitnesstrackerapp.com',
-      false, // This entry is set to not visible.
-      new Date(2023, 2, 11),
+  delayForLoader: number = 200;
+  constructor(public service: EntriesService, public router: Router) {
 
-    ),
-    new PortfolioEntryModel(
-      '4',
-      'Mobile App Development',
-      'Created a cross-platform mobile application for a fitness tracker, emphasizing user-friendly design and robust functionality.',
-      'https://picsum.photos/id/234/200/300',
-      'https://fitnesstrackerapp.com',
-      false, // This entry is set to not visible.
-      new Date(2023, 2, 11),
+  }
+  ngOnInit(): void {
+    let filter = { limit: 100 } as FilterPortfolioEntryModel;
 
-    ),
-    new PortfolioEntryModel(
-      '5',
-      'Modern Web Design',
-      'A complete redesign of a tech blog, focusing on responsive and modern UI/UX principles.',
-      'https://picsum.photos/id/237/200/300',
-      'https://techblog.com',
-      true,
-      new Date(2021, 3, 4),
+    setTimeout(() => {
+      this.service.getFilteredEntries(filter).subscribe({
+        next: (entries) => {
+          this.entries = entries;
+          this.isLoading = false;
+        }, error: (err) => {
 
-    ),
-    new PortfolioEntryModel(
-      '6',
-      'E-commerce Storefront',
-      'Developed an engaging and intuitive e-commerce platform for a fashion retailer, featuring a seamless shopping experience.',
-      'https://picsum.photos/id/235/200/300',
-      'https://fashionretailer.com',
-      true,
-      new Date(2020, 12, 3),
-    ),
-  ];
-
-  constructor(private router: Router) { }
+          this.isLoading = false;
+          throw err;
+        }
+      });
+    }, this.delayForLoader);
+  }
 
 
+  navigateToForm() {
+    this.router.navigate(['/portfolios/add']);
+  }
 
+
+  onCardPressed(entry: PortfolioEntryModel) {
+    let words = entry.title.split(' ');
+    this.router.navigate(['/portfolios/', entry.id, words.join('-')]);
+
+  }
 }
 

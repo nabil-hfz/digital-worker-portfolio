@@ -10,9 +10,4 @@ export class AppComponent {
   title = 'digital-worker-portfolio';
   constructor(private router: Router) { }
 
-  navigateToForm() {
-    console.log('navigateToForm /portfolio-form');
-    
-    this.router.navigate(['/portfolio-form']);
-  }
 }

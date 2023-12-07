@@ -1,40 +1,51 @@
 <!-- portfolio-details.component.html -->
-<mat-card>
-    <div  [formGroup]="portfolioForm"  class="portfolio-form-container">
+<ng-container *ngIf="isLoading; else content">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>
 
-        <form (ngSubmit)="onSubmit()">
 
-            <div class="form-field">
-                <label for="title">Title:</label>
-                <input type="text" id="title" formControlName="title">
-            </div>
 
-            <div class="form-field">
-                <label for="description">Description:</label>
-                <textarea id="description" formControlName="description"></textarea>
-            </div>
+<mat-card class="details">
 
-            <div class="form-field">
-                <label for="imageUrl">Image URL:</label>
-                <input type="text" id="imageUrl" formControlName="imageUrl">
-            </div>
 
-            <div class="form-field">
-                <label for="customerLink">Customer Link:</label>
-                <input type="text" id="customerLink" formControlName="customerLink">
-            </div>
+    <ng-template #content>
+        <ng-container *ngIf="hasError; else details">
+            <p>Error loading details. Please try again later.</p>
+        </ng-container>
 
-            <div class="form-field">
-                <label for="isVisible">Visible:</label>
-                <input type="checkbox" id="isVisible" formControlName="isVisible">
-            </div>
+        <ng-template #details>
 
-            <div class="form-field">
-                <label for="createdDate">Created Date:</label>
-                <input type="date" id="createdDate" formControlName="createdDate">
-            </div>
+            <mat-toolbar   color="primary"> Portfolio Details
+                <div class="header-content">
+                    <button class="btn btn-primary" (click)="deleteEntry() ">Delete</button>
 
-            <button type="submit" [disabled]="!portfolioForm.valid">Submit</button>
-        </form>
-    </div>
+                    <button class="btn btn-primary" (click)="updateEntry()">Update</button>
+
+                </div>
+            </mat-toolbar>
+
+            <mat-card *ngIf="portfolioEntry">
+                <mat-card-header>
+                    <mat-card-title>{{ portfolioEntry.title }}</mat-card-title>
+                    <mat-card-subtitle>{{ portfolioEntry.createdDate | date: 'longDate' }}</mat-card-subtitle>
+                </mat-card-header>
+                <img mat-card-image [src]="portfolioEntry.imageUrl" alt="Image of {{portfolioEntry.title}}">
+                <mat-card-content>
+                    <p><strong>Description:</strong> {{ portfolioEntry.description }}</p>
+                    <p><strong>Created on:</strong> {{ portfolioEntry.createdDate | date: 'medium' }}</p>
+                    <a *ngIf="portfolioEntry.isVisible" [href]="portfolioEntry.customerLink | absoluteUrl" target="_blank">Customer Link</a>
+
+
+                    <h5 *ngIf="!portfolioEntry.isVisible">Status: Hiden</h5>
+
+                </mat-card-content>
+                <!-- <mat-card-actions>
+                    <!-- <button mat-button [hidden]="portfolioEntry.isVisible">Hide</button>
+                    <button mat-button [hidden]="!portfolioEntry.isVisible">Unhide</button>
+                </mat-card-actions> -->
+            </mat-card>
+
+        </ng-template>
+    </ng-template>
+
 </mat-card>

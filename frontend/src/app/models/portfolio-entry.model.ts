@@ -12,6 +12,6 @@ export class PortfolioEntryModel {
 }
 
 export interface FilterPortfolioEntryModel {
-    name: string;
+    page: number;
     limit: number;
 }

@@ -1,5 +1,5 @@
 
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
@@ -19,10 +19,17 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { PortfolioDetailsComponent } from './portfolio/portfolio-details/portfolio-details.component';
 import { routes } from './app.routes';
-import { SpinnerComponent } from './shared/spinner.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { ToastrModule } from "ngx-toastr";
+import { ImageSelectorComponent } from './shared/image-selector/image-selector.component';
+import { EntriesService } from './stores/portfolio/api/portfolio.service';
+import { HttpClientModule } from '@angular/common/http';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { PortfolioFormComponent } from './portfolio/portfolio-form/portfolio-form.component';
+import { AppErrorHandler } from './common/app-error-handler';
+import { AbsoluteUrlPipe } from './pipes/url.pipe';
 
 
 
@@ -32,32 +39,34 @@ import { ToastrModule } from "ngx-toastr";
     PortfolioListComponent,
     PortfolioDetailsComponent,
     SpinnerComponent,
- 
- 
+    ImageSelectorComponent,
+    NotFoundComponent,
+    PortfolioFormComponent,
 
     //Pipes
-    SummaryPipe
+    SummaryPipe,
+    AbsoluteUrlPipe,
   ],
   imports: [
     BrowserModule,
     CommonModule,
     RouterOutlet,
-    FormsModule,
     BrowserAnimationsModule,
     MatToolbarModule,
+    FormsModule,
     MatFormFieldModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatCardModule,
     MatGridListModule,
     MatProgressBarModule,
     ToastrModule.forRoot({ preventDuplicates: true }),
 
-    ReactiveFormsModule,
     MatSidenavModule,
 
     MatButtonModule,
     FlexLayoutModule,
-
+    HttpClientModule,
 
     // AppRoutingModule,
     RouterModule.forRoot(routes),
@@ -65,7 +74,13 @@ import { ToastrModule } from "ngx-toastr";
 
 
   ],
-  providers: [],
+  providers: [
+    EntriesService,
+    {
+      provide: ErrorHandler,
+      useClass: AppErrorHandler,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
