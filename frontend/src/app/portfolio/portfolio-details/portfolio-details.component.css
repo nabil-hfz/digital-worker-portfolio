@@ -1,0 +1,75 @@
+mat-progress-bar {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  color: indigo;
+}
+
+.details {
+  width: min(80%, 30rem);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+
+.header-content {
+  display: flex;
+  flex-wrap: row;
+  gap: 15px;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+@media (max-width: 400px) {
+  mat-toolbar {
+    width: none;
+    min-height: 140px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .header-content {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  button {
+    margin-right: 0;
+    /* width: 100%; */
+  }
+}
+
+
+button {
+  margin-right: 12px;
+}
+
+
+mat-card {
+  align-items: center;
+}
+
+img {
+  min-width: 60px;
+  min-height: 60px;
+  width: 35%;
+  height: 35%;
+  max-width: 200px;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+p {
+  flex-grow: 1;
+  text-align: start;
+}

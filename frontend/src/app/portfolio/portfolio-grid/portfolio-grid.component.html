@@ -1,0 +1,45 @@
+<!-- <mat-progress-bar 
+  *ngIf="!(loaded$ | async)" 
+  mode="indeterminate"></mat-progress-bar> -->
+
+<mat-toolbar color="primary">
+    Portfolio Grid
+
+    <div class="header-content">
+        <button (click)="navigateToForm()">Add New Entry</button>
+    </div>
+</mat-toolbar>
+<!-- portfolio-details.component.html -->
+<ng-container *ngIf="isLoading; else content">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>
+
+
+<ng-template #content>
+    <div class="content-portfolio responsive-grid-portfolio">
+        <mat-card *ngFor="let entry of entries" (click)="onCardPressed(entry)">
+            <mat-card-header>
+                <mat-card-title>{{ entry.title }} </mat-card-title>
+            </mat-card-header>
+            <br />
+            <img mat-card-image [src]="entry.imageUrl" />
+            <mat-card-content class="card-content">
+                <br />
+                <a *ngIf="entry.isVisible" [href]="entry.customerLink | absoluteUrl" target="_blank">Customer Link</a>
+
+
+                <h5 *ngIf="!entry.isVisible">Status: Hiden</h5>
+
+            </mat-card-content>
+            <!-- <mat-card-actions>
+            <button mat-button [hidden]="entry.isVisible">Hide</button>
+            <button mat-button [hidden]="!entry.isVisible">Unhide</button>
+        </mat-card-actions> -->
+        </mat-card>
+    </div>
+
+    <div class="" *ngIf="!entries.length">
+
+        <mat-card-title> No Entries existed yet try adding one now</mat-card-title>
+    </div>
+</ng-template>

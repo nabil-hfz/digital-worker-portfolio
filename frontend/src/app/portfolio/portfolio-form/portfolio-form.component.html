@@ -1,0 +1,61 @@
+<!-- portfolio-details.component.html -->
+<mat-card>
+    <div class="title">
+        <h3>{{isAdding ? 'Add New Entry' :'Edit Entry' }}</h3>
+    </div>
+    <div class="form-group">
+
+        <form [formGroup]="portfolioForm" (ngSubmit)="onSubmit()">
+            <div class="fields-container">
+                <div class="form-field">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" formControlName="title" class="form-control">
+                    <div *ngIf="title?.touched && title?.invalid" class="alert alert-danger">
+                        <div *ngIf="title?.errors?.['required']">Username is required</div>
+
+                        <div *ngIf="title?.errors?.['minlength']">title min length is
+                            {{title?.errors?.['minlength'].requiredLength??3}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label for="description">Description:</label>
+                    <textarea id="description" formControlName="description" class="form-control"></textarea>
+                </div>
+            </div>
+
+            <div class="form-field">
+                <label for="imageUrl">Entry Image:</label>
+                <!-- <input type="text" id="imageUrl" formControlName="imageUrl"> -->
+                <app-image-selector id="imageUrl" formControlName="imageUrl"></app-image-selector>
+
+            </div>
+
+            <div class="form-group">
+                <label for="customerLink">Customer Link:</label>
+                <input type="text" id="customerLink" formControlName="customerLink" class="form-control">
+                <div *ngIf="customerLink?.touched && customerLink?.invalid" class="alert alert-danger">
+                    <div *ngIf="customerLink?.errors?.['required']">Customer Link is required</div>
+                    <div *ngIf="customerLink?.errors?.['validLink'] == true">Invalid link.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-field form-group">
+
+                <input type="checkbox" formControlName="isVisible"> Visible
+            </div>
+            <!-- 
+            <div class="form-field">
+                <label for="createdDate">Created Date:</label>
+                <input type="date" id="createdDate" formControlName="createdDate" class="form-control">
+            </div> -->
+
+
+            <button type="submit" [disabled]="!portfolioForm.valid">Submit</button>
+
+        </form>
+        <!-- <div> Touched:  {{portfolioForm.errors | json }}</div> -->
+    </div>
+</mat-card>
